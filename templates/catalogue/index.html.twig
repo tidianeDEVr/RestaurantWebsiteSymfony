@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Catalogue{% endblock %}
+
+{% block body %}
+    <div class="container d-flex justify-content-center">
+        <div class="mb-3">
+            <h3 class='text-center'>Filtre</h3>
+            {% for category in categories %}
+                {% if category.libelle in filtres %}
+                    <a href="{{path('catalogue_filtre', {filtre:category.libelle})}}" class="btn btn-dark mx-2">{{category.libelle|capitalize }}</a>    
+                {% else %}
+                    <a href="{{path('catalogue_filtre', {filtre:category.libelle})}}" class="btn btn-outline-dark mx-2">{{category.libelle|capitalize }}</a>    
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div><br><br>    
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-left">
+            {% for menu in menus %}
+                <div class="col mb-5">
+                    {# <a href="{{path('menu', {id:menu.id})}}"> #}
+                        <div class="card h-100">
+                            <!-- Product image-->
+                            <img class="card-img-top" src="assets/img/menus/{{menu.image}}" alt="produit" />
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder" style="font-family:'poppins';color:#000;">{{menu.libelle|upper}}</h5>
+                                    <!-- Product price-->
+                                    {% set prix = 0 %}
+                                    {% for produit in menu.produits %}
+                                        {% set prix = prix + produit.prix %}
+                                    {% endfor %}
+                                    {{prix}} Francs CFA
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center">
+                                    <a class="btn btn-primary btn-shadow btn-lg" href="{{path('cart_add', {'id':menu.id})}}" role="button">Add to Cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    {# </a> #}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

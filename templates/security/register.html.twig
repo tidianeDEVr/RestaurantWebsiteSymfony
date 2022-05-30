@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page d'inscription!{% endblock %}
+
+{% block body %}
+    {{ form_start(form) }}
+        <h1 class="h3 mb-3 font-weight-normal">Inscrivez vous !</h1>
+        <label for="inputLogin">Nom complet</label>
+        {{ form_widget(form.nomComplet) }}
+        <label for="inputLogin">Adresse email</label>
+        {{ form_widget(form.login) }}
+        <label for="inputPassword">Mot de passe</label>
+        {{ form_widget(form.password) }}
+        <label for="inputPassword">Adresse de residence</label>
+        {{ form_widget(form.domicile) }}
+        <label for="inputLogin">Telephone</label>
+        {{ form_widget(form.telephone) }}
+        <div class='row mt-5'>
+            <button class="btn btn-primary btn-shadow btn-lg" type="submit">
+                Soumettre
+            </button>
+            <a href="{{path('app_login')}}" class="btn btn-lg btn-outline-dark mx-3" type="submit">
+                J'ai deja un compte!
+            </a>
+        </div>
+    {{ form_end(form) }}
+{% endblock %}

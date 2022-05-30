@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier{% endblock %}
+
+{% block body %}
+    <div class="cart-section mt-150 mb-150">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-12">
+					<div class="cart-table-wrap">
+						<table class="table table-hover">
+							<thead class="cart-table-head">
+								<tr class="table-head-row">
+									<th class="product-remove"></th>
+									<th class="product-image">Image du menu</th>
+									<th class="product-name">Nom</th>
+									<th class="product-price">Prix</th>
+									<th class="product-quantity">Quantite</th>
+									<th class="product-total">Total</th>
+								</tr>
+							</thead>
+							<tbody>
+                                {% for item in selectedItems %}
+								<tr class="table-body-row">
+									<td class="product-remove"><a href="{{path('cart_remove', {'id': item.product.id})}}"><i class="far fa-window-close"></i></a></td>
+									<td class="product-image"><img src="assets/img/menus/{{item.product.image}}" alt="" width='120px'></td>
+									<td class="product-name">{{item.product.libelle}}</td>
+									<td class="product-price">{{item.product.prix}} F CFA</td>
+									<td class="product-quantity"><input type="number" placeholder="0" value='{{item.quantity}}'></td>
+									<td class="product-total">{{item.quantity}}</td>
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<div class="col-lg-4">
+					<div class="total-section">
+						<table class="total">
+							<thead class="table-head">
+								<tr class="table-row">
+									<th>Total</th>
+									<th>Price</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="total-data">
+									<td><strong>Total: </strong></td>
+									<td>{{ total }} F CFA</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="cart-buttons">
+							<a href="{{path('catalogue')}}" class="btn btn-primary btn-shadow btn-lg my-5">Retour boutique</a><br>
+                            {% if selectedItems|length > 0 %}
+                                <a href="{{path('make_command')}}" class="btn btn-primary btn-shadow btn-lg">Passer commande</a>
+                            {% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

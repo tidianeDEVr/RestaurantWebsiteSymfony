@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes commandes!{% endblock %}
+
+{% block body %}
+    <div class="cart-section mt-150 mb-150">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="cart-table-wrap">
+						<table class="table">
+							<thead class="table-head">
+								<tr class="table-head-row">
+									<th class="product-image">Menus</th>
+									<th class="product-name">Etat</th>
+									<th class="product-price">Prix</th>
+									<th class="product-quantity">Date</th>
+								</tr>
+							</thead>
+							<tbody>
+                                {% for commande in commandes %}
+								<tr class='table-body-row'>
+                                     <th scope="row" class='text-center'>
+										{% for menu in commande.menus %}
+                                            {{menu.libelle}} | 
+                                        {% endfor %}
+									</th>
+                                    <td>
+										<span 
+											{% if commande.etat == 'En cours' %}
+												class="badge bg-warning"
+											{% elseif commande.etat == 'Prete' %}
+												class="badge bg-success"
+											{% else %}
+												class="badge bg-danger"
+											{% endif %}
+											>
+											{{commande.etat}}
+										</span>
+									</td>
+									<td>{{commande.prix}} Francs CFA</td>
+                                    <td>{{commande.commandedAt|date('d-m-Y')}}</td>
+
+                                    
+                                </tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
